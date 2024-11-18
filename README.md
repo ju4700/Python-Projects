@@ -1,4 +1,4 @@
 # Python-Projects
 This repository is for my python projects. The projects i have worked on will be added here such as open-cv, scripting, and other all types of small projects.
 
-![Screenshot From 2024-11-17 19-32-22](https://github.com/user-attachments/assets/e3678260-27c1-4cab-b8b5-3fcb8164becf)
+![image](https://github.com/user-attachments/assets/5ae65ff1-9b9a-4a8f-830d-7b316e38c8f8)
