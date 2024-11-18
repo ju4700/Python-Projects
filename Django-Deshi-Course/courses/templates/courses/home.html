@@ -1,0 +1,160 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deshi Course</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f9fafb;
+            color: #212529;
+            font-family: 'Poppins', sans-serif;
+            overflow: auto;
+            scrollbar-width: none;
+        }
+        body::-webkit-scrollbar{
+            display: none;
+        }
+        .navbar {
+            background-color: #ffffff;
+            border-bottom: 1px solid #e5e5e5;
+        }
+        .navbar-brand {
+            font-weight: bold;
+            color: #007bff !important;
+        }
+        .nav-link {
+            color: #6c757d !important;
+            transition: color 0.3s ease-in-out;
+        }
+        .nav-link:hover {
+            color: #007bff !important;
+        }
+        .hero-section {
+            text-align: center;
+            padding: 60px 20px;
+        }
+        .hero-title {
+            font-size: 2.5rem;
+            font-weight: 600;
+            color: #212529;
+        }
+        .hero-subtitle {
+            color: #6c757d;
+            font-size: 1rem;
+            margin-top: 10px;
+        }
+        .search-bar {
+            max-width: 500px;
+            margin: 20px auto;
+        }
+        
+        .course-card {
+            background-color: #ffffff;
+            border: 1px solid #e5e5e5;
+            border-radius: 8px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .course-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        .card-img-top {
+            border-radius: 8px 8px 0 0;
+            height: 180px;
+            object-fit: cover;
+        }
+        .btn-buy {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            font-weight: bold;
+            width: 100%;
+        }
+        .btn-buy:hover {
+            background-color: #0056b3;
+        }
+        .footer {
+            background-color: #f9fafb;
+            color: #6c757d;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 50px;
+            border-top: 1px solid #e5e5e5;
+        }
+        .footer a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        .footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="/">Deshi Course</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    {% if user.is_authenticated %}
+                        <li class="nav-item"><a class="nav-link" href="#">Welcome, {{ user.username }}</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">Logout</a></li>
+                    {% else %}
+                        <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Login</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{% url 'register' %}">Register</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="container hero-section">
+        <h1 class="hero-title">Deshi Course</h1>
+        <p class="hero-subtitle">Your gateway to affordable, high-quality education.</p>
+        <form class="search-bar" method="get" action="">
+            <div class="input-group">
+                <input type="text" name="q" class="form-control" placeholder="Search for courses..." value="{{ request.GET.q|default:'' }}">
+                <button class="btn btn-primary" type="submit">Search</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Courses Section -->
+    <div class="container">
+        <div class="row g-4">
+            {% for course in courses %}
+            <div class="col-md-4">
+                <div class="card course-card h-100">
+                    {% if course.image %}
+                        <img src="{{ course.image.url }}" class="card-img-top" alt="{{ course.title }}">
+                    {% else %}
+                        <img src="{% static 'default-course-image.jpg' %}" class="card-img-top" alt="Default Course Image">
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ course.title }}</h5>
+                        <p class="card-text">{{ course.description|truncatechars:100 }}</p>
+                        <p class="text-muted"><strong>Platform:</strong> {{ course.platform_name }}</p>
+                        <a href="{{ course.affiliate_link }}" class="btn btn-buy">Buy for ৳{{ course.price }}</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p>&copy; 2024 Deshi Course. Designed with <a href="https://www.google.com/search?q=mx73a3%2FanU0NzAw&oq=mx73a3%2FanU0NzAw&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIKCAEQABiABBiiBDIGCAIQRRg60gEIMjUzN2owajeoAgCwAgA&sourceid=chrome&ie=UTF-8">love</a>.</p>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
