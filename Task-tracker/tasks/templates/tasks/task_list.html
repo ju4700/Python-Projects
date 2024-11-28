@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Task List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        h1 {
+            text-align: center;
+            margin: 20px 0;
+            color: #5a67d8;
+        }
+        a {
+            text-decoration: none;
+            color: #ffffff;
+            background-color: #5a67d8;
+            padding: 8px 12px;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        a:hover {
+            background-color: #434cda;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+            max-width: 600px;
+            margin: 20px auto;
+        }
+        li {
+            background: #ffffff;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .actions {
+            display: flex;
+            gap: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Task Tracker</h1>
+    <div style="text-align: center;">
+        <a href="{% url 'task_create' %}">Add Task</a>
+    </div>
+    <ul>
+        {% for task in tasks %}
+        <li>
+            <div>
+                <strong>{{ task.description }}</strong> - <span>{{ task.status }}</span>
+            </div>
+            <div class="actions">
+                <a href="{% url 'task_update' task.id %}">Edit</a>
+                <a href="{% url 'task_delete' task.id %}" style="background-color: #e53e3e;">Delete</a>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
