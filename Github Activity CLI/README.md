@@ -151,3 +151,5 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 - [Tabulate Library](https://pypi.org/project/tabulate/) (for tabular output)
 
 Enjoy using the GitHub Activity CLI! 🚀
+
+The idea of this project came from: https://roadmap.sh/projects/github-user-activity
